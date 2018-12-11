@@ -1,0 +1,116 @@
+/*
+    STRUCTURE
+*/
+body { font: 14px/1.1 Helvetica, Sans-Serif; }
+#page-wrap { width: 960px; margin: 6px auto 50px; position: relative; }
+hr { height: 1px; background: #ccc; clear: both; margin: 20px 0; border: none; display: block; }
+
+/*
+    TYPOGRAPHY
+*/
+a  { text-decoration: none; color: #313a47; border-bottom: 1px dotted #900; outline: none; }
+h1 { color: #313a47;  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;  margin: 0; }
+h2 { color: #313a47;  margin: 0 0 0 0; }
+p { color: #313a47; margin: 0 0 6px 0; }
+.button { background: url(/images/button-bg.png) repeat-x; -moz-border-radius: 5px; padding: 6px 12px; border: none; color: white; cursor: pointer; text-shadow: 0 1px 1px #666; -webkit-border-radius: 5px; -webkit-box-shadow: 0 1px 3px #999; -moz-box-shadow: 0 1px 3px #999; font: bold 16px Helvetica; } 
+.button:hover { background-position: bottom left; }
+.red { background: red; color: white; font-size: 12px; padding: 3px; }
+
+/*
+    HEADER
+*/
+#header { height: 68px; position: relative; border-bottom: 1px solid #e1e5e8}
+#header h1 {font-size: 22px; display:inline-block;}
+#header-text {display:inline-block; vertical-align: middle; margin: 0 auto; }
+#header img {height: 100%; display:inline-block; vertical-align: middle;}
+#header h2 {color: #313a47; font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px;}
+#header h1 a { display: block; text-indent: -9999px; width: 200px; height: 38px; border: none; background: url(/images/logo.png) no-repeat; }
+#control { width: 500px; float: right; padding: 10px 237px 0 0; text-align: right; }
+
+/*
+    SIDEBAR 
+*/
+#ribbon { float:left; left: 0; width: 225px; height: 756px; top: -6px; border-right: 1px solid #e1e5e8}
+#ribbon ul { list-style: none; padding-left: 0px; }
+#ribbon ul li:hover{ background: #f9fafb; padding: 5px; margin:  0 0px 3px 20px; font-size: 14px; }
+#ribbon ul li { padding: 5px; margin:  0 0px 3px 20px; font-size: 14px; }
+
+/*
+    SIDEBAR 
+*/
+#editor { overflow: auto; height: 756px;}
+
+aside { 
+    position:  absolute;
+  /*  left: 0;
+    top: 0;  set these so Chrome doesn't return 'auto' from getComputedStyle */
+    width: 200px; 
+    background: rgba(255,255,255,0.66); 
+    border: 2px  solid rgba(0,0,0,0.5); 
+    border-radius: 4px; padding: 8px;
+}
+
+
+.circle {
+    display: table-cell;
+    position:  absolute;
+    height: 200px;
+ /*change this and the width for the size of your initial circle*/
+    width: 200px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+  /*make it pretty*/
+  background: red;
+    font: 18px "josefin sans", arial;
+  /*change this for font-size and font-family*/
+}
+
+#circle2 {
+    display: table-cell;
+    position:  absolute;
+    height: 100px;
+ /*change this and the width for the size of your initial circle*/
+    width: 100px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+  /*make it pretty*/
+  background: pink;
+    font: 18px "josefin sans", arial;
+  /*change this for font-size and font-family*/
+}
+
+
+
+.node rect {
+  cursor: move;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  text-shadow: 1px 1px 2px #fff;
+  font-size: 0.8em;
+  font-family: sans-serif;
+}
+
+#tooltip {
+  position: absolute;
+  pointer-events: none;
+  font-size: 0.7em;
+  font-family: sans-serif;
+  padding: 3px;
+  width: auto;
+  height: auto;
+  background-color: #F2F2F2;
+  -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+  -mox-box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 5px rbga(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.value {
+  white-space: pre-line;
+  margin: 0;
+}
