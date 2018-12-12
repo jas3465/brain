@@ -12,7 +12,7 @@ function setColor(entityId) {
 
 
 
-$(".types li").click(function () {
+$("#types li").click(function () {
 
   var entityId = "location" + newEntity++;
 
