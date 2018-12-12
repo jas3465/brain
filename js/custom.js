@@ -1,21 +1,11 @@
-const colors = {
-  PINK: '#F2326B',
-  YELLOW: '#FDC131',
-  TEAL: '#23D2BE',
-  BLUE: '#178ACD'
-}
+var idx = 0;
 
-function getColorClass($color) {
-  switch ($color) {
-    case 1:
-      return colors.YELLOW;
-    case 2:
-      return colors.TEAL;
-    case 3:
-      return colors.BLUE;
-    default:
-      return colors.PINK;
-  }
+var colors = ['#F2326B','#FDC131','#23D2BE','#178ACD'];
+
+var newEntity = 3;
+
+function setColor(entityId) {
+  document.getElementById(entityId).style.backgroundColor = colors[++idx%4];
 };
 
 function initialize() {
@@ -25,19 +15,20 @@ function initialize() {
   $("#circle")
     .addClass("circle");
 
-    document.getElementById("circle").style.backgroundColor = getColorClass(1);
+    document.getElementById("circle").style.backgroundColor = setColor("circle");
 
 };
 
 $("#location").click(function () {
+
+  var entityId = "circle" + newEntity++;
+
   $("#editor")
-    .append("<div id='circle3'>Location</div>");
+    .append("<div id='" + entityId + "'>Location</div>");
 
-  $("#circle3")
-    .addClass("circle3");
+  document.getElementById(entityId).addClass("circle3");
 
-  $("#circle3")
-    .addClass("circle3");
+  document.getElementById(entityId).style.backgroundColor = setColor(entityId);
 
-  jsPlumb.draggable("circle3");
+  jsPlumb.draggable(entityId);
 });
