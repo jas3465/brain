@@ -25,7 +25,7 @@ function initialize() {
   $("#circle")
     .addClass("circle");
 
-  $("#circle").style.backgroundColor = getColorClass();
+    document.getElementById("circle").style.backgroundColor = getColorClass();
 
 };
 
