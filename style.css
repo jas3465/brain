@@ -8,7 +8,7 @@ hr { height: 1px; background: #ccc; clear: both; margin: 20px 0; border: none; d
 /*
     TYPOGRAPHY
 */
-a  { text-decoration: none; color: #313a47; border-bottom: 1px dotted #900; outline: none; }
+a  { text-decoration: none; color: #313a47; outline: none; }
 h1 { color: #313a47;  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;  margin: 0; }
 h2 { color: #313a47;  margin: 0 0 0 0; }
 p { color: #313a47; margin: 0 0 6px 0; }
@@ -40,62 +40,18 @@ p { color: #313a47; margin: 0 0 6px 0; }
 */
 #editor { overflow: auto; height: 756px;}
 
-.circle {
+.entity {
     display: table-cell;
     position:  absolute;
-    height: 200px;
- /*change this and the width for the size of your initial circle*/
-    width: 200px;
+    height: 160px;
+    width: 150px;
     text-align: center;
-    vertical-align: middle;
-    border-radius: 50%;
-  /*make it pretty*/
-  background: red;
-    font: 18px "josefin sans", arial;
-  /*change this for font-size and font-family*/
+    border-radius: 20%;
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #313a47;
 }
 
-#circle2 {
-    display: table-cell;
-    position:  absolute;
-    height: 100px;
- /*change this and the width for the size of your initial circle*/
-    width: 100px;
-    text-align: center;
-    vertical-align: middle;
-    border-radius: 50%;
-  /*make it pretty*/
-  background: pink;
-    font: 18px "josefin sans", arial;
-  /*change this for font-size and font-family*/
-}
-
-#circle3 {
-  display: table-cell;
-  position:  absolute;
-  height: 100px;
-/*change this and the width for the size of your initial circle*/
-  width: 100px;
-  text-align: center;
+.entity span {
   vertical-align: middle;
-  border-radius: 50%;
-/*make it pretty*/
-background:blue;
-  font: 18px "josefin sans", arial;
-/*change this for font-size and font-family*/
-}
-
-
-#builtin {
-  display: table-cell;
-  position:  absolute;
-  height: 100px;
-/*change this and the width for the size of your initial circle*/
-  width: 100px;
-  text-align: center;
-  vertical-align: middle;
-/*make it pretty*/
-  background:blue;
-  font: 18px "josefin sans", arial;
-/*change this for font-size and font-family*/
+  position: relative;
 }
