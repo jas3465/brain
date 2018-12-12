@@ -15,9 +15,9 @@ function setColor(entityId) {
 $("#types li").click(function () {
 
   var entityId = "location" + newEntity++;
-
+  var type = $(this).attr('id');
   $("#editor")
-    .append("<div id='" + entityId + "'></div>");
+    .append("<div id='" + entityId + "'>" + type + "</div>");
 
   $("#" + entityId).addClass("circle");
 
