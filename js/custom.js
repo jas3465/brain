@@ -9,8 +9,10 @@ function initialize() {
 
 $( "#location" ).click(function() {
   $("#editor")
-  .append("<div id='circle3'>test3</div>");
+  .append("<div id='circle3'>Location</div>");
 
   $("#circle3")
   .addClass("circle3");
+
+  jsPlumb.draggable("circle3");
 });
