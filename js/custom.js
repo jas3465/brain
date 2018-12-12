@@ -26,7 +26,7 @@ $("#location").click(function () {
   $("#editor")
     .append("<div id='" + entityId + "'>Location</div>");
 
-  document.getElementById(entityId).addClass("circle3");
+  $("#" + entityId).addClass("circle3");
 
   document.getElementById(entityId).style.backgroundColor = setColor(entityId);
 
