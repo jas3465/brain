@@ -25,17 +25,3 @@ $(".types li").click(function () {
 
   jsPlumb.draggable(entityId);
 });
-
-$("#location").click(function () {
-
-  var entityId = "location" + newEntity++;
-
-  $("#editor")
-    .append("<div id='" + entityId + "'></div>");
-
-  $("#" + entityId).addClass("circle");
-
-  document.getElementById(entityId).style.backgroundColor = setColor(entityId);
-
-  jsPlumb.draggable(entityId);
-});
