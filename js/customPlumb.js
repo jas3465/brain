@@ -1,14 +1,16 @@
 jsPlumb.ready(function () {
 
     var instance = jsPlumb.getInstance({
-        DragOptions: { cursor: 'pointer', zIndex: 2000 },
-        PaintStyle: { stroke: '#666' },
-        EndpointHoverStyle: { fill: "orange" },
-        HoverPaintStyle: { stroke: "orange" },
-        EndpointStyle: { width: 20, height: 16, stroke: '#666' },
-        Endpoint: "Rectangle",
-        Anchors: ["TopCenter", "TopCenter"],
-        Container: "canvas"
+        PaintStyle:{ 
+            strokeWidth:6, 
+            stroke:"#567567", 
+            outlineStroke:"black", 
+            outlineWidth:1 
+          },
+          Connector:[ "Bezier", { curviness: 30 } ],
+          Endpoint:[ "Dot", { radius:5 } ],
+          EndpointStyle : { fill: "#567567"  },
+          Anchor : [ 0.5, 0.5, 1, 1 ]
     });
 
     jsPlumb.draggable("circle");
