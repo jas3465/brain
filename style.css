@@ -36,20 +36,9 @@ p { color: #313a47; margin: 0 0 6px 0; }
 #ribbon ul li { padding: 5px; margin:  0 0px 3px 20px; font-size: 14px; }
 
 /*
-    SIDEBAR 
+    EDITOR 
 */
 #editor { overflow: auto; height: 756px;}
-
-aside { 
-    position:  absolute;
-  /*  left: 0;
-    top: 0;  set these so Chrome doesn't return 'auto' from getComputedStyle */
-    width: 200px; 
-    background: rgba(255,255,255,0.66); 
-    border: 2px  solid rgba(0,0,0,0.5); 
-    border-radius: 4px; padding: 8px;
-}
-
 
 .circle {
     display: table-cell;
@@ -96,36 +85,3 @@ background:blue;
 /*change this for font-size and font-family*/
 }
 
-
-
-.node rect {
-  cursor: move;
-  shape-rendering: crispEdges;
-}
-
-.node text {
-  pointer-events: none;
-  text-shadow: 1px 1px 2px #fff;
-  font-size: 0.8em;
-  font-family: sans-serif;
-}
-
-#tooltip {
-  position: absolute;
-  pointer-events: none;
-  font-size: 0.7em;
-  font-family: sans-serif;
-  padding: 3px;
-  width: auto;
-  height: auto;
-  background-color: #F2F2F2;
-  -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
-  -mox-box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.4);
-  box-shadow: 0px 0px 5px rbga(0, 0, 0, 0.4);
-  pointer-events: none;
-}
-
-.value {
-  white-space: pre-line;
-  margin: 0;
-}
