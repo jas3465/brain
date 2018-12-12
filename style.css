@@ -55,3 +55,7 @@ p { color: #313a47; margin: 0 0 6px 0; }
   vertical-align: middle;
   position: relative;
 }
+
+.check {
+  height: 10px;
+}
