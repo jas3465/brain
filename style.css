@@ -85,3 +85,17 @@ background:blue;
 /*change this for font-size and font-family*/
 }
 
+
+#builtin {
+  display: table-cell;
+  position:  absolute;
+  height: 100px;
+/*change this and the width for the size of your initial circle*/
+  width: 100px;
+  text-align: center;
+  vertical-align: middle;
+/*make it pretty*/
+  background:blue;
+  font: 18px "josefin sans", arial;
+/*change this for font-size and font-family*/
+}
