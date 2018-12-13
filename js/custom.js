@@ -39,6 +39,16 @@ jsPlumb.ready(function () {
     instance.deleteConnection(conn);
 });
 
+instance.bind("beforeDrop", function (info) {
+  // console.log("before drop: " + info.sourceId + ", " + info.targetId);
+      if (info.sourceId === info.targetId) { //source and target ID's are same
+          console.log("source and target ID's are the same - self connections not allowed.")
+          return false;
+      } else {
+          return true;
+      }
+  });
+
   var colors = ['#F2326B', '#FDC131', '#23D2BE', '#178ACD'];
   function setColor(entityId) {
     document.getElementById(entityId).style.backgroundColor = colors[++idx % 4];
