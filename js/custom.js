@@ -1,3 +1,5 @@
+/* GLOBAL VARIABLES */
+
 var idx = 0;
 var newEntity = 0;
 const entityTypes = {
@@ -9,14 +11,33 @@ const entityTypes = {
   event: "Event",
   custom: "Custom"
 };
+var dynamicAnchors = [[0.2, 0, 0, -1], [1, 0.2, 1, 0],
+[0.8, 1, 0, 1], [0, 0.8, -1, 0]];
 
 function initialize() {
 
 };
 
 jsPlumb.ready(function () {
-  var instance = jsPlumb.getInstance();
+  var instance = jsPlumb.getInstance({
+    Container: "editor",
+    Connector: ["Bezier", { curviness: 30 }],
+    DragOptions: { cursor: "pointer", zIndex: 2000 },
+    Endpoint: "Blank",
+    Anchor: ["Perimeter", { shape: "Rectangle" }],
+    ConnectionOverlays: [
+      ["Arrow", {
+        location: 1,
+        visible: true,
+        width: 11,
+        length: 11
+      }]
+    ],
+  });
 
+  instance.bind("click", function(conn) {
+    instance.deleteConnection(conn);
+});
 
   var colors = ['#F2326B', '#FDC131', '#23D2BE', '#178ACD'];
   function setColor(entityId) {
@@ -34,12 +55,12 @@ jsPlumb.ready(function () {
     else
       var entityId = "custom" + newEntity++;
 
-    $("#editor").append("<div id='" + entityId + "'><span>" + entityTypes[type] + "</span><div class='icons'><img class='connection' src='connection.png'/>&ensp;<img class='trash' src='trash.png'/>&ensp;<img class='pencil' src='pencil.png'/></div></div>");
+    $("#editor").append("<div id='" + entityId + "'><span>" + entityTypes[type] + "</span><div class='icons'><img class='connection' id='connection1' src='connection.png'/>&ensp;<img class='trash' src='trash.png'/>&ensp;<img class='pencil' src='pencil.png'/></div></div>");
 
     $("#" + entityId).addClass("entity");
 
     var d = document.getElementById(entityId);
-    var x_pos = 260 + Math.floor(Math.random() * (screen.width - 260));
+    var x_pos = 260 + Math.floor(Math.random() * 740);
     var y_pos = 25 + Math.floor(Math.random() * 510);
 
     d.style.backgroundColor = setColor(entityId);
@@ -50,6 +71,33 @@ jsPlumb.ready(function () {
     y_pos = y_pos + 200;
 
     instance.draggable(entityId);
+    instance.makeSource(entityId);
+    instance.makeTarget(entityId);
+    instance.toggleSourceEnabled(entityId);
+  });
+
+  $(".connection").live("click", function () {
+    var img1 = "connection.png",
+      img2 = "activeconnection.png";
+
+    var id = $(this).parent().parent().attr("id");
+    var selector = instance.getSelector("#" + id);
+    var enabled = instance.toggleSourceEnabled(selector);
+    var drag = instance.toggleDraggable(selector);
+
+    /* enable source */
+    if ($(this).attr("src") === img1) {
+      $(this).attr("src", img2);
+      $(this).parent().css("display", "block");
+    }
+
+    /* disable source */
+    else {
+      $(this).attr("src", img1);
+      $(this).parent().css("display", "");
+      instance.draggable(selector, { disabled: false });
+    }
+
   });
 
 
@@ -107,6 +155,11 @@ jsPlumb.ready(function () {
 
     // Open the modal
     method.open = function (settings) {
+      if ($('.modalHeader').length === 0) {
+        $content.before("<div class='modalHeader'>" + settings.name + '</div>');
+      }
+      else
+        $(".modalHeader").empty().text(settings.name);
       $content.empty().append(settings.content);
       document.getElementById("modal").style.backgroundColor = settings.color;
 
@@ -136,7 +189,7 @@ jsPlumb.ready(function () {
       method.close();
     });
 
-    $(".addFieldAction").live("click", function() {
+    $(".addFieldAction").live("click", function () {
       $('.table tr:last').after('<tr><td contenteditable></td><td><select id="select1" onchange="getValue(this)"><option value="$">Unspecified</option><option value="val1">Single-Line Text</option><option value="val2">Multi-Line Text</option><option value="val3">Multi-Option Select</option></select></td><td contenteditable></td><td contenteditable></td><td><img class="trash" src="trash.png"/></td></tr>');
     });
 
@@ -148,17 +201,17 @@ jsPlumb.ready(function () {
 function buildTable(entityType) {
   var table = '<table class="table fixedSize"><thead><tr><th>Field Name</th><th>Field Type</th><th>Data Source</th><th>Notes</th><th></th></tr></thead><tbody>';
   var dict = {};
-  if (entityType == "Location") 
+  if (entityType == "Location")
     dict = locationFields;
-  else if (entityType == "Healthcare Professional") 
+  else if (entityType == "Healthcare Professional")
     dict = healthcareProfessionalFields;
-  else if (entityType == "Healthcare Facility") 
+  else if (entityType == "Healthcare Facility")
     dict = healthcareFacilityFields;
-  else if (entityType == "ATM") 
+  else if (entityType == "ATM")
     dict = atmFields;
-  else if (entityType == "Restaurant") 
+  else if (entityType == "Restaurant")
     dict = restaurantFields;
-  else if (entityType == "Event") 
+  else if (entityType == "Event")
     dict = eventFields;
   var row = '';
   for (var key in dict) {
