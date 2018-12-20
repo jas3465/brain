@@ -224,9 +224,14 @@ jsPlumb.ready(function () {
     // Center the modal in the viewport
     method.center = function () {
       var top, left;
-
-      top = Math.max($(window).height() - $modal.outerHeight(), 0) / 3;
-      left = Math.max($(window).width() - $modal.outerWidth(), 0) / 3;
+      if (isEntityEdit) {
+        top = Math.max($(window).height() - $modal.outerHeight(), 0) / 3;
+        left = Math.max($(window).width() - $modal.outerWidth(), 0) / 3;
+      }
+      else {
+        top = Math.max($(window).height() - $modal.outerHeight(), 0) / 3;
+        left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+      }
 
       $modal.css({
         top: top + $(window).scrollTop(),
