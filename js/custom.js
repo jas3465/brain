@@ -21,7 +21,9 @@ var typesEnabled = {
   healthcareProfessional: false,
   healthcareFacility: false,
   event: false
-}
+};
+
+var savedSchemas = {};
 
 function initialize() {
 
@@ -206,7 +208,9 @@ jsPlumb.ready(function () {
       $overlay,
       $modal,
       $content,
-      $close;
+      $close,
+      type,
+      isEntityEdit = false;
 
     $overlay = $('<div id="overlay"></div>');
     $modal = $('<div id="modal"><img class="close" src="close.png"/></div>');
@@ -226,7 +230,7 @@ jsPlumb.ready(function () {
       var top, left;
 
       top = Math.max($(window).height() - $modal.outerHeight(), 0) / 3;
-      left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+      left = Math.max($(window).width() - $modal.outerWidth(), 0) / 3;
 
       $modal.css({
         top: top + $(window).scrollTop(),
@@ -241,10 +245,13 @@ jsPlumb.ready(function () {
       }
       else
         $(".modalHeader").empty().text(settings.name);
+      type = settings.name;
+      isEntityEdit = settings.entityEdit;
 
-      if (settings.entityEdit) $("#modal").attr("class", "entityEditModal");
+      if (isEntityEdit) $("#modal").attr("class", "entityEditModal");
       else $("#modal").attr("class", "newTypeModal");
-      $content.empty().append(settings.content);
+      if (savedSchemas[type] != null) $content.empty().append($(savedSchemas[type]));
+      else $content.empty().append(settings.content);
       document.getElementById("modal").style.backgroundColor = settings.color;
 
       method.center();
@@ -265,6 +272,11 @@ jsPlumb.ready(function () {
 
     $close.click(function (e) {
       e.preventDefault();
+      if (isEntityEdit) {
+        savedSchemas[type] = $(this).parent().children("#content").get(0).innerHTML;
+        console.log($(this).parent().children("#content").get(0).innerHTML);
+        console.log(savedSchemas)
+      }
       method.close();
     });
 
