@@ -183,7 +183,7 @@ jsPlumb.ready(function () {
       console.log(newType)
       modal.close();
       typesEnabled[newType] = false;
-      var node = $("<li id=" + newType + " class='customtype'>" + newType + "&emsp;</li>").insertBefore("#addCustomLink")
+      var node = $("<li id=" + newType + " class='customtype'>" + newType + "&emsp;</li>").insertBefore("#addCustomLink");
       addRemoveNode(newType, node, true);
     }
   });
@@ -281,7 +281,7 @@ jsPlumb.ready(function () {
     });
 
     $(".addFieldAction").live("click", function () {
-      $('.table tr:last').after('<tr><td contenteditable></td><td><select id="select1" onchange="getValue(this)"><option value="$">Unspecified</option><option value="val1">Single-Line Text</option><option value="val2">Multi-Line Text</option><option value="val3">Multi-Option Select</option></select></td><td contenteditable></td><td contenteditable></td><td><img class="trashField" src="trash.png"/></td></tr>');
+      $('.table tr:last').after('<tr><td contenteditable></td><td contenteditable></td><td contenteditable></td><td contenteditable></td><td><img class="trashField" src="trash.png"/></td></tr>');
     });
 
     $(".trashField").live("click", function() {
