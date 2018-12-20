@@ -161,6 +161,7 @@ jsPlumb.ready(function () {
     settings.name = entityType;
     settings.content = buildTable(entityType);
     settings.color = $(this).parent().parent().css('background-color');
+    settings.entityEdit = true;
     modal.open(settings);
   });
 
@@ -170,6 +171,7 @@ jsPlumb.ready(function () {
     settings.name = "Add New Custom Type";
     settings.color = colors[++idx % 4];
     settings.content = "<span id='nameSpan'>Name: &nbsp;</span><input type='text' name='name' id='newCustomName'><br><button id='addNewTypeName'>Add</button>"
+    settings.entityEdit = false;
     modal.open(settings);
   });
 
@@ -223,7 +225,7 @@ jsPlumb.ready(function () {
     method.center = function () {
       var top, left;
 
-      top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
+      top = Math.max($(window).height() - $modal.outerHeight(), 0) / 3;
       left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
 
       $modal.css({
@@ -239,6 +241,9 @@ jsPlumb.ready(function () {
       }
       else
         $(".modalHeader").empty().text(settings.name);
+
+      if (settings.entityEdit) $("#modal").attr("class", "entityEditModal");
+      else $("#modal").attr("class", "newTypeModal");
       $content.empty().append(settings.content);
       document.getElementById("modal").style.backgroundColor = settings.color;
 
