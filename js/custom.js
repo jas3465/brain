@@ -166,7 +166,7 @@ jsPlumb.ready(function () {
 
     var settings = {};
     settings.name = "Add New Custom Type";
-    settings.color = colors[++idx % 4];
+    settings.color = colors[idx % 4];
     settings.content = "<span id='nameSpan'>Name: &nbsp;</span><input type='text' name='name' id='newCustomName'><br><button id='addNewTypeName'>Add</button>"
     settings.entityEdit = false;
     modal.open(settings);
