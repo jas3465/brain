@@ -309,6 +309,8 @@ function buildTable(entityType) {
     dict = restaurantFields;
   else if (entityType == "Event")
     dict = eventFields;
+ /* else
+    dict = customFields;*/
   var row = '';
   for (var key in dict) {
     row = '<tr><td>' + key + '</td><td>' + dict[key] + '</td><td contenteditable></td><td contenteditable></td><td></td></tr>';
@@ -326,7 +328,12 @@ var locationFields = {
   "Phone Number": "Phone",
   "Entity ID": "Single-Line Text"
 }
-
+/*
+var customFields = {
+  "Name": "Single-Line Text",
+  "Entity ID": "Single-Line Text"
+}
+*/
 var restaurantFields = {
   "Name": "Single-Line Text",
   "Categories": "Categories",
