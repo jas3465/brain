@@ -282,7 +282,7 @@ jsPlumb.ready(function () {
     });
 
     $(".addFieldAction").live("click", function () {
-      $('.table tr:last').after('<tr><td contenteditable></td><td contenteditable></td><td contenteditable></td><td contenteditable></td><td><img class="trashField" src="trash.png"/></td></tr>');
+      $('.table tr:last').after('<tr><td contenteditable></td><td contenteditable></td><td contenteditable></td><td contenteditable></td><td class="trashCell"><img class="trashField" src="trash.png"/></td></tr>');
     });
 
     $(".trashField").live("click", function() {
@@ -314,7 +314,7 @@ function buildTable(entityType) {
     dict = customFields;*/
   var row = '';
   for (var key in dict) {
-    row = '<tr><td>' + key + '</td><td>' + dict[key] + '</td><td contenteditable></td><td contenteditable></td><td></td></tr>';
+    row = '<tr><td>' + key + '</td><td>' + dict[key] + '</td><td contenteditable></td><td contenteditable></td><td class="trashCell"></td></tr>';
     table = table + row;
   }
   table = table + '</tbody></table><div class="addField"><a href="#" class="addFieldAction">+ Add a Field</a></div>';

@@ -130,6 +130,19 @@ p { color: #313a47; margin: 0 0 6px 0; }
   height: 45px;
 }
 
+.fixedSize tr td {
+  border-top: 1px solid #dee2e6;
+  border-bottom: none;
+  border-right: 1px solid #dee2e6;
+}
+.fixedSize tr .trashCell {
+  border-top: 1px solid #dee2e6;
+  border-bottom: none;
+  border-right: none;
+  text-align: center;
+}
+
+
 .addField {
   bottom: 30px;
   text-align: center;
