@@ -169,12 +169,13 @@ jsPlumb.ready(function () {
     var settings = {};
     settings.name = "Add New Custom Type";
     settings.color = colors[++idx % 4];
-    settings.content = "Name: &nbsp;<input type='text' name='name' id='newCustomName'><br><button id='addNewTypeName'>Add</button>"
+    settings.content = "<span id='nameSpan'>Name: &nbsp;</span><input type='text' name='name' id='newCustomName'><br><button id='addNewTypeName'>Add</button>"
     modal.open(settings);
   });
 
   $('#addNewTypeName').live("click", function () {
     var newType = document.getElementById('newCustomName').value;
+    console.log(newType)
     modal.close();
     typesEnabled[newType] = false;
     var node = $("<li id=" + newType + " class='customtype'>" + newType + "&emsp;</li>").insertBefore("#addCustomLink")
