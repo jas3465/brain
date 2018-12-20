@@ -225,7 +225,7 @@ jsPlumb.ready(function () {
     method.center = function () {
       var top, left;
       if (isEntityEdit) {
-        top = Math.max($(window).height() - $modal.outerHeight(), 0) / 3;
+        top = Math.max($(window).height() - $modal.outerHeight(), 0) / 5;
         left = Math.max($(window).width() - $modal.outerWidth(), 0) / 3;
       }
       else {
