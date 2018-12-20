@@ -14,6 +14,15 @@ const entityTypes = {
 var dynamicAnchors = [[0.2, 0, 0, -1], [1, 0.2, 1, 0],
 [0.8, 1, 0, 1], [0, 0.8, -1, 0]];
 
+var typesEnabled = {
+  locationEnabled: false,
+  atmEnabled: false,
+  restaurantEnabled: false,
+  healthcareProfessionalEnabled: false,
+  healthcareFacilityEnabled: false,
+  eventEnabled: false
+}
+
 function initialize() {
 
 };
@@ -35,18 +44,18 @@ jsPlumb.ready(function () {
     ],
   });
 
-  instance.bind("click", function(conn) {
+  instance.bind("click", function (conn) {
     instance.deleteConnection(conn);
-});
+  });
 
-instance.bind("beforeDrop", function (info) {
-  // console.log("before drop: " + info.sourceId + ", " + info.targetId);
-      if (info.sourceId === info.targetId) { //source and target ID's are same
-          console.log("source and target ID's are the same - self connections not allowed.")
-          return false;
-      } else {
-          return true;
-      }
+  instance.bind("beforeDrop", function (info) {
+    // console.log("before drop: " + info.sourceId + ", " + info.targetId);
+    if (info.sourceId === info.targetId) { //source and target ID's are same
+      console.log("source and target ID's are the same - self connections not allowed.")
+      return false;
+    } else {
+      return true;
+    }
   });
 
   var colors = ['#F2326B', '#FDC131', '#23D2BE', '#178ACD'];
@@ -55,36 +64,48 @@ instance.bind("beforeDrop", function (info) {
   };
 
 
-  $("#types li").one("click", function () {
-
-    var type = $(this).attr('id');
-    if (type == "location" || type == "restaurant" || type == "atm" || type == "healthcareFacility" || type == "healthcareProfessional" || type == "event") {
-      var entityId = type + newEntity++;
-      $(this).append("<img src='check.png' class='check'/>");
-    }
-    else
-      var entityId = "custom" + newEntity++;
-
-    $("#editor").append("<div id='" + entityId + "'><span>" + entityTypes[type] + "</span><div class='icons'><img class='connection' id='connection1' src='connection.png'/>&ensp;<img class='trash' src='trash.png'/>&ensp;<img class='pencil' src='pencil.png'/></div></div>");
-
-    $("#" + entityId).addClass("entity");
-
-    var d = document.getElementById(entityId);
-    var x_pos = 260 + Math.floor(Math.random() * 740);
-    var y_pos = 25 + Math.floor(Math.random() * 510);
-
-    d.style.backgroundColor = setColor(entityId);
-    d.style.left = x_pos + 'px';
-    d.style.top = y_pos + 'px';
-
-    x_pos = x_pos + 200;
-    y_pos = y_pos + 200;
-
-    instance.draggable(entityId);
-    instance.makeSource(entityId);
-    instance.makeTarget(entityId);
-    instance.toggleSourceEnabled(entityId);
+  $("#types .builtin").click( function () {
+    var node = this;
+    var type = $(node).attr('id');
+    addRemoveNode(type, node);
   });
+    
+  function addRemoveNode(type, node) {
+    var enabled = typesEnabled[type];
+    if (enabled) {
+      var pageContainer = $(node).parent().parent().parent();
+      var nodeID = type + "Node";
+      var nodeToDelete = pageContainer.children("#editor").children("#" + nodeID);
+      nodeToDelete.remove();
+      $(node).children(".check").remove();
+      typesEnabled[type] = false;
+
+    }
+    else {
+      $(node).append("<img src='check.png' class='check'/>");
+      var entityId = type + "Node";
+      $("#editor").append("<div id='" + entityId + "'><span>" + entityTypes[type] + "</span><div class='icons'><img class='connection' id='connection1' src='connection.png'/>&ensp;<img class='trash' src='trash.png'/>&ensp;<img class='pencil' src='pencil.png'/></div></div>");
+
+      $("#" + entityId).addClass("entity");
+
+      var d = document.getElementById(entityId);
+      var x_pos = 260 + Math.floor(Math.random() * 740);
+      var y_pos = 25 + Math.floor(Math.random() * 510);
+
+      d.style.backgroundColor = setColor(entityId);
+      d.style.left = x_pos + 'px';
+      d.style.top = y_pos + 'px';
+
+      x_pos = x_pos + 200;
+      y_pos = y_pos + 200;
+
+      instance.draggable(entityId);
+      instance.makeSource(entityId);
+      instance.makeTarget(entityId);
+      instance.toggleSourceEnabled(entityId);
+      typesEnabled[type] = true;
+    }
+  };
 
   $(".connection").live("click", function () {
     var img1 = "connection.png",
@@ -115,19 +136,24 @@ instance.bind("beforeDrop", function (info) {
     var entityType = $(this).parent().parent().text().trim();
     var settings = {};
     settings.name = entityType;
-    /*settings.content = $('<table><tr><td><div contenteditable>Im editable</div></td><td><div contenteditable>Im also editable</div></td></tr><tr><td>Im not editable</td><td><select id="select1" onchange="getValue(this)"><option value="$">--Please Select--</option><option value="val1">value 1</option><option value="val2">value 2</option><option value="val3">value 3</option></select></td></tr></table>');
-   
-    settings.content = $('<table class="table"><thead><tr><th>Field Name</th><th>Field Type</th><th>Notes</th><th>Data Source</th></tr></thead><tbody><tr><td>Name</td><td><select id="select1" onchange="getValue(this)"><option value="$">Unspecified</option><option value="val1">value 1</option><option value="val2">value 2</option><option value="val3">value 3</option></select></td><td>Marketing DB</td><td></td></tr></tbody></table>');
-    */
     settings.content = buildTable(entityType);
     settings.color = $(this).parent().parent().css('background-color');
     modal.open(settings);
   });
 
-  $(".trash").live("dblclick", function () {
-    $(this).parent().parent().remove();
+  $("#addCustom").live("click", function () {
+    var settings = {};
+    modalCustomType.open(settings);
   });
 
+  $(".trash").live("dblclick", function () {
+    var nodeToDelete = $(this).parent().parent();
+    var nodeID = $(nodeToDelete).attr("id");
+    var pageContainer = nodeToDelete.parent().parent();
+    var type = nodeID.substring(0, nodeID.length - 4);
+    var node = pageContainer.children("#ribbon").children("#types").children("#" + type);
+    addRemoveNode(type, node);
+  });
 
   var modal = (function () {
     var
@@ -205,7 +231,86 @@ instance.bind("beforeDrop", function (info) {
 
     return method;
   }());
+
+  var modalCustomType = (function () {
+    var
+      method = {},
+      $overlay,
+      $modal,
+      $content,
+      $close;
+
+    $overlay = $('<div id="overlay"></div>');
+    $modal = $('<div id="modal"><img class="close" src="close.png"/></div>');
+    $content = $('<div id="content"></div>');
+    $close = $('<a id="close" href="#"></a>');
+
+    $modal.hide();
+    $overlay.hide();
+    $modal.append($content, $close);
+
+    $(document).ready(function () {
+      $('body').append($overlay, $modal);
+    });
+
+    // Center the modal in the viewport
+    method.center = function () {
+      var top, left;
+
+      top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
+      left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+
+      $modal.css({
+        top: top + $(window).scrollTop(),
+        left: left + $(window).scrollLeft()
+      });
+    };
+
+    // Open the modal
+    method.open = function (settings) {
+      if ($('.modalHeader').length === 0) {
+        $content.before("<div class='modalHeader'>Add New Custom Type</div>");
+      }
+      else
+        $(".modalHeader").empty().text("Add New Custom Type");
+      document.getElementById("modal").style.backgroundColor = '#FDC131';
+
+      $modal.css({
+        width: settings.width || 'auto',
+        height: settings.height || 'auto'
+      })
+
+      method.center();
+
+      $(window).bind('resize.modal', method.center);
+
+      $modal.show();
+      $overlay.show();
+    };
+
+    // Close the modal
+    method.close = function () {
+      $modal.hide();
+      $overlay.hide();
+      $content.empty();
+      $(window).unbind('resize.modal');
+    };
+
+    $close.click(function (e) {
+      e.preventDefault();
+      method.close();
+    });
+
+    $(".addFieldAction").live("click", function () {
+      $('.table tr:last').after('<tr><td contenteditable></td><td><select id="select1" onchange="getValue(this)"><option value="$">Unspecified</option><option value="val1">Single-Line Text</option><option value="val2">Multi-Line Text</option><option value="val3">Multi-Option Select</option></select></td><td contenteditable></td><td contenteditable></td><td><img class="trash" src="trash.png"/></td></tr>');
+    });
+
+    return method;
+  }());
+
 });
+
+
 
 
 function buildTable(entityType) {
