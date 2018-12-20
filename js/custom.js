@@ -175,11 +175,13 @@ jsPlumb.ready(function () {
 
   $('#addNewTypeName').live("click", function () {
     var newType = document.getElementById('newCustomName').value;
-    console.log(newType)
-    modal.close();
-    typesEnabled[newType] = false;
-    var node = $("<li id=" + newType + " class='customtype'>" + newType + "&emsp;</li>").insertBefore("#addCustomLink")
-    addRemoveNode(newType, node, true);
+    if (newType != "") {
+      console.log(newType)
+      modal.close();
+      typesEnabled[newType] = false;
+      var node = $("<li id=" + newType + " class='customtype'>" + newType + "&emsp;</li>").insertBefore("#addCustomLink")
+      addRemoveNode(newType, node, true);
+    }
   });
 
 
@@ -240,11 +242,6 @@ jsPlumb.ready(function () {
       $content.empty().append(settings.content);
       document.getElementById("modal").style.backgroundColor = settings.color;
 
-      $modal.css({
-        width: settings.width || 'auto',
-        height: settings.height || 'auto'
-      })
-
       method.center();
 
       $(window).bind('resize.modal', method.center);
@@ -267,7 +264,11 @@ jsPlumb.ready(function () {
     });
 
     $(".addFieldAction").live("click", function () {
-      $('.table tr:last').after('<tr><td contenteditable></td><td><select id="select1" onchange="getValue(this)"><option value="$">Unspecified</option><option value="val1">Single-Line Text</option><option value="val2">Multi-Line Text</option><option value="val3">Multi-Option Select</option></select></td><td contenteditable></td><td contenteditable></td><td><img class="trash" src="trash.png"/></td></tr>');
+      $('.table tr:last').after('<tr><td contenteditable></td><td><select id="select1" onchange="getValue(this)"><option value="$">Unspecified</option><option value="val1">Single-Line Text</option><option value="val2">Multi-Line Text</option><option value="val3">Multi-Option Select</option></select></td><td contenteditable></td><td contenteditable></td><td><img class="trashField" src="trash.png"/></td></tr>');
+    });
+
+    $(".trashField").live("click", function() {
+        $(this).parent().parent().remove();
     });
 
     return method;
@@ -277,7 +278,7 @@ jsPlumb.ready(function () {
 
 
 function buildTable(entityType) {
-  var table = '<table class="table fixedSize"><thead><tr><th>Field Name</th><th>Field Type</th><th>Data Source</th><th>Notes</th><th></th></tr></thead><tbody>';
+  var table = '<table class="table fixedSize"><thead><tr><th width="40">Field Name</th><th width="40">Field Type</th><th width="80">Data Source</th><th width="80">Notes</th><th width="20"></th></tr></thead><tbody>';
   var dict = {};
   if (entityType == "Location")
     dict = locationFields;

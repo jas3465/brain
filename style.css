@@ -62,7 +62,7 @@ p { color: #313a47; margin: 0 0 6px 0; }
   height: 10px;
 }
 
-.pencil, .trash, .connection {
+.pencil, .trash, .connection, .trashField {
   height: 20px;
 }
 
@@ -93,14 +93,15 @@ p { color: #313a47; margin: 0 0 6px 0; }
   position:absolute;
   padding:8px;
   border-radius:8px;
+  margin: 40px;
 }
 
 #content {
   border-radius:8px;
   background:#fff;
   padding:20px;
-  height: 80%;
   margin-top: 15px;
+  overflow-y: auto;
 }
 
 #close {
@@ -122,9 +123,11 @@ p { color: #313a47; margin: 0 0 6px 0; }
 }
 
 .fixedSize {
-  height: 250px;
-  width: 700px;
+  width: 100%;
+}
 
+.fixedSize tr {
+  height: 45px;
 }
 
 .addField {
@@ -150,20 +153,44 @@ p { color: #313a47; margin: 0 0 6px 0; }
   right: 5px;
   bottom: 5px;
   position: absolute;
+  display: block;
   margin: 10px;
+  padding: 5px 20px 5px 20px;
   border-radius: 5px;
+  border: none;
+  background: #e1e5e8;
+  color: #4d6272;
 }
 
 #newCustomName {
   margin: 20px 20px 20px 0px;
-  border-radius: 5px;
-  border-style:solid;
-  border-width:1px;
+  border: 1px solid #e1e5e8;
+  border-radius: 3px;
+  padding: 6px 10px;
+  margin: 0;
+  display: block;
   font-size: 14px;
   width: 350px;
+  height: 30px;
+}
+
+td contenteditable {
+  margin: 20px 20px 20px 0px;
+  border: 1px solid #e1e5e8;
+  border-radius: 3px;
+  padding: 6px 10px;
+  margin: 0;
 }
 
 #nameSpan {
+  display: block;
+  float: left;
   margin-left: 10px;
   font-size: 16px;
+}
+
+table
+{
+    table-layout: fixed;
+    width: 100px;
 }
