@@ -79,36 +79,31 @@ jsPlumb.ready(function () {
   });
     
   function addRemoveNode(type, node, isCustomType) {
-    var enabled = typesEnabled[type];
+    var typeNoSpace = type.split(' ').join('');
+    var enabled = typesEnabled[typeNoSpace];
     if (enabled) {
       if (isCustomType) {
         var pageContainer = $(node).parent().parent().parent();
-        var nodeID = type + "Node";
+        var nodeID = typeNoSpace + "Node";
         var nodeToDelete = pageContainer.children("#editor").children("#" + nodeID);
         nodeToDelete.remove();
         $(node).remove();
-        typesEnabled[type] = false;
+        typesEnabled[typeNoSpace] = false;
       }
       else {
         var pageContainer = $(node).parent().parent().parent();
-        var nodeID = type + "Node";
+        var nodeID = typeNoSpace + "Node";
         var nodeToDelete = pageContainer.children("#editor").children("#" + nodeID);
         nodeToDelete.remove();
         $(node).children(".check").remove();
-        typesEnabled[type] = false;
+        typesEnabled[typeNoSpace] = false;
       }
     }
     else {
       var typeName = type;
-      console.log(typeName)
-      console.log(isCustomType)
-      console.log(type)
-      if (!isCustomType) typeName = entityTypes[type];
+      if (!isCustomType) typeName = entityTypes[typeNoSpace];
       $(node).append("<img src='check.png' class='check'/>");
-      var entityId = type + "Node";
-      console.log(type)
-      console.log(typeName)
-      console.log(entityId)
+      var entityId = typeNoSpace + "Node";
       $("#editor").append("<div id='" + entityId + "'><span>" + typeName + "</span><div class='icons'><img class='connection' id='connection1' src='connection.png'/>&ensp;<img class='trash' src='trash.png'/>&ensp;<img class='pencil' src='pencil.png'/></div></div>");
 
       $("#" + entityId).addClass("entity");
@@ -128,7 +123,7 @@ jsPlumb.ready(function () {
       instance.makeSource(entityId);
       instance.makeTarget(entityId);
       instance.toggleSourceEnabled(entityId);
-      typesEnabled[type] = true;
+      typesEnabled[typeNoSpace] = true;
     }
   };
 
@@ -181,9 +176,10 @@ jsPlumb.ready(function () {
     var newType = document.getElementById('newCustomName').value;
     if (newType != "") {
       console.log(newType)
+      var newTypeNoSpace = newType.split(' ').join('');
       modal.close();
       typesEnabled[newType] = false;
-      var node = $("<li id=" + newType + " class='customtype'>" + newType + "&emsp;</li>").insertBefore("#addCustomLink");
+      var node = $("<li id=" + newTypeNoSpace + " class='customtype'>" + newType + "&emsp;</li>").insertBefore("#addCustomLink");
       addRemoveNode(newType, node, true);
     }
   });
@@ -328,12 +324,12 @@ var locationFields = {
   "Phone Number": "Phone",
   "Entity ID": "Single-Line Text"
 }
-/*
+
 var customFields = {
   "Name": "Single-Line Text",
   "Entity ID": "Single-Line Text"
 }
-*/
+
 var restaurantFields = {
   "Name": "Single-Line Text",
   "Categories": "Categories",
